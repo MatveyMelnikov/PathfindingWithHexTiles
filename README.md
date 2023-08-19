@@ -1,5 +1,5 @@
 # PathfindingWithHexTiles
-Implementation of the A* pathfinding algorithm using a tilemap as a graph.
+Implementation of the A* pathfinding algorithm for unity engine using a tilemap as a graph.
 
 ## Advantages
 To work, there is no need to create a cost matrix for each tile. The cost depends on the name of the tile (its image) and is set in the external function passed to the method with the last argument.
