@@ -1,6 +1,9 @@
 # PathfindingWithHexTiles
 Implementation of the A* pathfinding algorithm using a tilemap as a graph.
 
+## Advantages
+To work, there is no need to create a cost matrix for each tile. The cost depends on the name of the tile (its image) and is set in the external function passed to the method with the last argument.
+
 ## How to use
 You need to transfer the [file with the pathfinding](https://github.com/MatveyMelnikov/PathfindingWithHexTiles/blob/master/Assets/Sources/Pathfinding.cs) code and the [external implementation](https://github.com/MatveyMelnikov/PathfindingWithHexTiles/blob/master/Assets/Sources/External/PriorityQueue.cs) of the priority queue to your project.
 
