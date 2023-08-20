@@ -28,7 +28,8 @@ public class Pathfinding
 
     // Algorithm A* is used
     // The last argument is a function to estimate the cost of a tile. 
-    // The name of the texture (tile image) is passed to the argument of this function
+    // The name of the texture (tile image) is passed to the argument of this function.
+    // If the pathfinding fails, it returns an empty list.
     static public List<Vector3Int> CalculatePath(
         in Tilemap tilemap, 
         Vector3Int start, 
@@ -43,16 +44,23 @@ public class Pathfinding
         came_from.Add(start, start);
         cost.Add(start, 0);
 
+        bool success = false;
         while (frontier.Count > 0)
         {
             Vector3Int current = frontier.Dequeue();
 
             if (current == end)
+            {
+                success = true;
                 break;
+            }
 
             foreach (Vector3Int next in GetNeighbors(tilemap, current))
             {
-                int new_cost = cost[current] + GetCostOfTile(GetTileName(tilemap, next));
+                int costOfTile = GetCostOfTile(GetTileName(tilemap, next));
+                if (costOfTile < 0)
+                    continue;
+                int new_cost = cost[current] + costOfTile;
 
                 if (!cost.ContainsKey(next) || new_cost < cost[next])
                 {
@@ -62,6 +70,9 @@ public class Pathfinding
                 }
             }
         }
+
+        if (!success)
+            return new List<Vector3Int>();
 
         // Collect result path
         List<Vector3Int> path = new List<Vector3Int>() { end };

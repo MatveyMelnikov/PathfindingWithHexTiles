@@ -29,13 +29,20 @@ public class TestControl : MonoBehaviour
             Debug.Log("End selected");
 
             isStartSelected = false;
+            if (!tilemap.HasTile(start) || !tilemap.HasTile(end))
+            {
+                Debug.Log("Selected non-existent tile");
+                return;
+            }
+
             // Test run
             positions = Pathfinding.CalculatePath(tilemap, start, end, GetTileCost);
         }
     }
 
-    // Function to determine the cost of each tile
-    // The name of the texture (tile image) is passed to the argument
+    // Function to determine the cost of each tile.
+    // If the price is negative, then the tile is considered unattainable.
+    // The name of the texture (tile image) is passed to the argument.
     int GetTileCost(string name)
     {
         switch(name[name.Length - 1])
@@ -43,7 +50,7 @@ public class TestControl : MonoBehaviour
             case '1':
                 return 2;
             case '2':
-                return 4;
+                return -1;
             case '3':
                 return 0;
             default:
